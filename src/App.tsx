@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { AuthProvider } from './contexts/AuthContext'
+import { ToastProvider } from './contexts/ToastContext'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -7,6 +10,24 @@ import Process from './components/Process'
 import Portfolio from './components/Portfolio'
 import CTA from './components/CTA'
 import Footer from './components/Footer'
+import Login from './pages/Login'
+import CommunityList from './pages/community/CommunityList'
+import CommunityWrite from './pages/community/CommunityWrite'
+import CommunityView from './pages/community/CommunityView'
+import ProtectedRoute from './components/ProtectedRoute'
+
+function Home() {
+  return (
+    <main>
+      <Hero />
+      <About />
+      <Curriculum />
+      <Process />
+      <Portfolio />
+      <CTA />
+    </main>
+  )
+}
 
 export default function App() {
   const [scrolled, setScrolled] = useState(false)
@@ -18,17 +39,22 @@ export default function App() {
   }, [])
 
   return (
-    <>
-      <Header scrolled={scrolled} />
-      <main>
-        <Hero />
-        <About />
-        <Curriculum />
-        <Process />
-        <Portfolio />
-        <CTA />
-      </main>
-      <Footer />
-    </>
+    <BrowserRouter>
+      <AuthProvider>
+        <ToastProvider>
+          <Header scrolled={scrolled} />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/community" element={<CommunityList />} />
+            <Route path="/community/write" element={
+              <ProtectedRoute><CommunityWrite /></ProtectedRoute>
+            } />
+            <Route path="/community/:id" element={<CommunityView />} />
+          </Routes>
+          <Footer />
+        </ToastProvider>
+      </AuthProvider>
+    </BrowserRouter>
   )
 }
