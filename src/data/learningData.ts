@@ -80,6 +80,12 @@ export const searchData: SearchItem[] = [
   { title: '교육과정 안내', category: '교육과정', path: '/education', icon: '🎓' },
   // 커뮤니티
   { title: '커뮤니티', category: '커뮤니티', path: '/community', icon: '👥' },
+  // 프롬프트 LAB
+  { title: '프롬프트 평가 기준', category: '프롬프트 LAB', path: '/prompt-lab', icon: '📏' },
+  { title: '좋은/나쁜 프롬프트 예시', category: '프롬프트 LAB', path: '/prompt-lab', icon: '✅' },
+  { title: '프롬프트 자유 실습', category: '프롬프트 LAB', path: '/prompt-lab', icon: '✍️' },
+  { title: '시나리오 실습', category: '프롬프트 LAB', path: '/prompt-lab', icon: '🎯' },
+  { title: '프롬프트 평가 히스토리', category: '프롬프트 LAB', path: '/prompt-lab', icon: '📊' },
 ];
 
 // ===== 2. 바이브코딩 기초 =====
@@ -1226,5 +1232,83 @@ export const educationData: EducationCourse[] = [
       '포트폴리오 사이트 제작',
       '프로젝트 발표 및 피드백',
     ],
+  },
+];
+
+// ===== 8. 프롬프트 LAB 학습 토픽 =====
+export const promptLabTopics: Topic[] = [
+  {
+    id: 'grading-criteria',
+    title: '프롬프트 평가 7가지 기준',
+    icon: '📏',
+    description: '좋은 프롬프트를 작성하기 위한 7가지 핵심 평가 기준을 학습합니다. 각 기준을 이해하면 AI에게 더 정확한 결과를 얻을 수 있습니다.',
+    content: [
+      { subtitle: '1. 명확성 (15점)', text: '프롬프트가 모호하지 않고 의도가 분명한가? 적절한 길이(50~500자)를 유지하고, "뭔가", "적당히", "좀" 같은 모호한 표현을 피해야 합니다.' },
+      { subtitle: '2. 구체성 (15점)', text: '기술 키워드(React, TypeScript 등), 숫자, 파일명, 함수명 등 구체적인 정보가 포함되어 있는가? 구체적일수록 AI가 정확한 코드를 생성합니다.' },
+      { subtitle: '3. 맥락 제공 (15점)', text: '기술 스택, 개발 환경, 프로젝트 배경 등 맥락 정보를 제공하는가? "React 19 + Vite + TypeScript 환경에서" 같은 정보가 AI의 이해를 돕습니다.' },
+      { subtitle: '4. 출력 형식 지정 (15점)', text: '원하는 결과의 형태를 지정했는가? "코드로 작성해줘", "표로 정리해줘", "JSON 형태로", "마크다운으로" 등 포맷을 명시하면 원하는 결과를 얻기 쉽습니다.' },
+      { subtitle: '5. 제약조건 명시 (15점)', text: '제한사항이나 규칙을 명시했는가? "외부 라이브러리 사용하지 마", "최대 50줄 이내로", "반드시 타입을 지정해" 등의 제약이 품질을 높입니다.' },
+      { subtitle: '6. 단계적 지시 (15점)', text: '복잡한 작업을 순서대로 나누어 지시했는가? "1. 먼저 ~하고", "2. 그 다음 ~해줘" 같은 단계별 지시가 복잡한 작업에서 정확도를 높입니다.' },
+      { subtitle: '7. 역할 부여 (10점)', text: 'AI에게 특정 역할이나 페르소나를 부여했는가? "시니어 React 개발자로서", "코드 리뷰어 역할로" 등의 역할 부여가 답변 품질을 향상시킵니다.' },
+    ],
+    code: `// 7가지 기준이 모두 반영된 이상적인 프롬프트 예시
+
+"시니어 React 개발자로서(역할),                    // 7. 역할 부여
+React 19 + TypeScript + Vite 환경에서(맥락),       // 3. 맥락 제공
+사용자 로그인 폼 컴포넌트를 만들어줘(명확성).       // 1. 명확성
+
+구체적 요구사항(구체성):                            // 2. 구체성
+- 이메일과 비밀번호 입력 필드
+- 유효성 검사 포함 (이메일 형식, 비밀번호 8자 이상)
+- Supabase Auth 연동
+
+단계별로 진행해줘(단계적 지시):                     // 6. 단계적 지시
+1. 먼저 타입 정의
+2. 컴포넌트 JSX 작성
+3. 유효성 검사 로직 추가
+4. Supabase 연동 코드 작성
+
+제약조건(제약):                                     // 5. 제약조건
+- 외부 UI 라이브러리 사용하지 마
+- 반드시 TypeScript strict 모드 호환
+- 최대 100줄 이내
+
+TypeScript 코드로 작성해줘(출력 형식)"              // 4. 출력 형식`,
+    codeLang: 'text',
+  },
+  {
+    id: 'good-bad-examples',
+    title: '좋은/나쁜 프롬프트 비교',
+    icon: '✅',
+    description: '실제 바이브코딩에서 자주 사용되는 프롬프트의 Before(나쁜 예시)와 After(좋은 예시)를 비교합니다.',
+    content: [
+      { subtitle: '예시 1: 코드 생성', items: ['❌ Bad: "로그인 만들어줘"', '✅ Good: "React + TypeScript로 이메일/비밀번호 로그인 폼을 만들어줘. Supabase Auth를 사용하고, 유효성 검사를 포함해줘. 에러 메시지는 한국어로 표시해줘."'] },
+      { subtitle: '예시 2: 버그 수정', items: ['❌ Bad: "이거 왜 안 돼? 고쳐줘"', '✅ Good: "아래 React 컴포넌트에서 useEffect 의존성 배열이 비어있어 무한 렌더링이 발생합니다. fetchData 함수를 의존성에 추가하되, useCallback으로 감싸서 수정해줘."'] },
+      { subtitle: '예시 3: 리팩토링', items: ['❌ Bad: "코드 좀 깔끔하게 해줘"', '✅ Good: "아래 함수를 단일 책임 원칙에 맞게 리팩토링해줘. 1. 데이터 fetching 로직을 커스텀 훅으로 분리 2. UI 렌더링은 별도 컴포넌트로 분리 3. 타입을 명시적으로 지정해줘."'] },
+      { subtitle: '예시 4: 설명 요청', items: ['❌ Bad: "이 코드 설명해줘"', '✅ Good: "아래 TypeScript 코드의 동작을 주니어 개발자도 이해할 수 있게 설명해줘. 각 함수의 역할, 타입의 의미, 데이터 흐름을 단계별로 설명하고 핵심 개념은 한국어 주석으로 달아줘."'] },
+      { subtitle: '핵심 포인트', items: ['구체적인 기술 스택과 환경 정보를 포함하세요', '원하는 결과의 형태와 조건을 명확히 지정하세요', '복잡한 작업은 단계별로 나누어 지시하세요', 'AI가 판단해야 할 부분을 최소화하세요'] },
+    ],
+    code: `// Before: 모호한 프롬프트
+"버튼 컴포넌트 만들어줘"
+
+// After: 7가지 기준이 반영된 프롬프트
+"프론트엔드 UI 전문가로서,
+React 19 + TypeScript 환경에서 재사용 가능한 Button 컴포넌트를 만들어줘.
+
+요구사항:
+- variant: 'primary' | 'secondary' | 'danger' | 'ghost'
+- size: 'sm' | 'md' | 'lg'
+- loading 상태 지원 (스피너 표시)
+- disabled 상태 지원
+- children과 leftIcon, rightIcon prop 지원
+
+제약조건:
+- CSS Module이 아닌 인라인 스타일 또는 className 사용
+- 외부 라이브러리 없이 구현
+- 접근성(a11y) 고려 (aria 속성 포함)
+
+먼저 타입 정의를 하고, 그 다음 컴포넌트를 작성해줘.
+TypeScript 코드로 작성해줘."`,
+    codeLang: 'text',
   },
 ];

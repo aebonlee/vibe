@@ -10,7 +10,6 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { path: '/', label: '홈' },
   { path: '/basics', label: '기초' },
   { path: '/cursor', label: 'Cursor' },
   { path: '/claude-code', label: 'Claude Code' },
@@ -18,6 +17,7 @@ const navItems: NavItem[] = [
   { path: '/projects', label: '프로젝트' },
   { path: '/qna', label: 'Q&A' },
   { path: '/education', label: '교육과정' },
+  { path: '/prompt-lab', label: '프롬프트 LAB' },
   { path: '/community', label: '커뮤니티' },
 ];
 
