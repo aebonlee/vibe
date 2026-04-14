@@ -69,7 +69,7 @@ export default function Navbar(): React.ReactElement {
               <button
                 key={color}
                 className={`color-dot ${colorTheme === color ? 'active' : ''}`}
-                style={{ background: colorMap[color] || '#7C3AED' }}
+                style={{ background: colorMap[color] || '#0046C8' }}
                 onClick={() => setColorTheme(color)}
                 title={color}
               />

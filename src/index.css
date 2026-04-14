@@ -5,11 +5,11 @@
 
 /* ===== 1. CSS Variables (Color Themes) ===== */
 :root {
-  --primary: #7C3AED;
-  --primary-dark: #5B21B6;
-  --primary-light: #A78BFA;
-  --primary-rgb: 124, 58, 237;
-  --primary-gradient: linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);
+  --primary: #0046C8;
+  --primary-dark: #002E8A;
+  --primary-light: #4A8FE7;
+  --primary-rgb: 0, 70, 200;
+  --primary-gradient: linear-gradient(135deg, #0046C8 0%, #4A8FE7 100%);
 
   --bg-body: #F4F7FA;
   --bg-card: #FFFFFF;
@@ -62,12 +62,12 @@
 }
 
 /* ===== Color Theme Variants ===== */
-[data-color="blue"] {
-  --primary: #0046C8;
-  --primary-dark: #002E8A;
-  --primary-light: #4A8FE7;
-  --primary-rgb: 0, 70, 200;
-  --primary-gradient: linear-gradient(135deg, #0046C8 0%, #4A8FE7 100%);
+[data-color="purple"] {
+  --primary: #7C3AED;
+  --primary-dark: #5B21B6;
+  --primary-light: #A78BFA;
+  --primary-rgb: 124, 58, 237;
+  --primary-gradient: linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);
 }
 [data-color="red"] {
   --primary: #DC2626;
@@ -1152,48 +1152,70 @@ a:hover {
   flex-shrink: 0;
 }
 
-/* ===== 14. Sub Navigation ===== */
-.sub-nav {
-  position: sticky;
-  top: var(--navbar-height);
-  z-index: 100;
-  background: var(--bg-card);
-  border-bottom: 1px solid var(--border-color);
-  padding: 0 24px;
-}
-
-.sub-nav-inner {
+/* ===== 14. Sidebar Layout ===== */
+.sidebar-layout {
   max-width: 1280px;
   margin: 0 auto;
+  padding: 32px 24px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  padding: 8px 0;
+  gap: 32px;
+  align-items: flex-start;
 }
 
-.sub-nav-tab {
-  padding: 8px 16px;
-  border-radius: var(--radius-full);
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  position: sticky;
+  top: calc(var(--navbar-height) + 24px);
+  max-height: calc(100vh - var(--navbar-height) - 48px);
+  overflow-y: auto;
+}
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 12px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
   font-size: 14px;
   font-weight: 500;
   color: var(--text-secondary);
-  white-space: nowrap;
   cursor: pointer;
   transition: all var(--transition-fast);
   border: none;
   background: none;
   font-family: var(--font-family);
+  text-align: left;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.sub-nav-tab:hover {
+.sidebar-item:hover {
   color: var(--primary);
   background: rgba(var(--primary-rgb), 0.06);
 }
 
-.sub-nav-tab.active {
+.sidebar-item.active {
   color: var(--text-inverse);
   background: var(--primary-gradient);
   font-weight: 600;
+}
+
+.sidebar-content {
+  flex: 1;
+  min-width: 0;
 }
 
 /* ===== 15. Roadmap ===== */
@@ -1971,6 +1993,40 @@ a:hover {
   }
   :root {
     --navbar-height: 60px;
+  }
+  .sidebar-layout {
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+  }
+  .sidebar {
+    width: 100%;
+    position: sticky;
+    top: var(--navbar-height);
+    z-index: 100;
+    max-height: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 16px;
+  }
+  .sidebar-menu {
+    flex-direction: row;
+    gap: 4px;
+    border: none;
+    border-radius: 0;
+    padding: 8px 0;
+    background: transparent;
+    width: max-content;
+  }
+  .sidebar-item {
+    white-space: nowrap;
+    padding: 8px 14px;
+    border-radius: var(--radius-full);
+  }
+  .sidebar-content {
+    padding: 24px 16px;
   }
   .card-grid {
     grid-template-columns: repeat(2, 1fr);

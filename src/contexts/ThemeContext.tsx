@@ -14,7 +14,7 @@ interface ThemeContextValue {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-const COLORS: string[] = ['purple', 'blue', 'red', 'green', 'orange'];
+const COLORS: string[] = ['blue', 'purple', 'red', 'green', 'orange'];
 
 interface ThemeProviderProps {
   children: React.ReactNode;
@@ -29,7 +29,7 @@ export function ThemeProvider({ children }: ThemeProviderProps): React.ReactElem
   });
 
   const [colorTheme, setColorTheme] = useState<string>(() => {
-    return localStorage.getItem('vibe-colorTheme') || 'purple';
+    return localStorage.getItem('vibe-colorTheme') || 'blue';
   });
 
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
