@@ -19,7 +19,6 @@ const Login = lazy(() => import('./pages/Login'));
 const CommunityList = lazy(() => import('./pages/community/CommunityList'));
 const CommunityWrite = lazy(() => import('./pages/community/CommunityWrite'));
 const CommunityView = lazy(() => import('./pages/community/CommunityView'));
-const PromptLab = lazy(() => import('./pages/PromptLab'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 function ScrollToTop(): null {
@@ -77,7 +76,6 @@ function App(): React.ReactElement {
           <Route path="/community/write" element={
             <ProtectedRoute><CommunityWrite /></ProtectedRoute>
           } />
-          <Route path="/prompt-lab" element={<PromptLab />} />
           <Route path="/community/:id" element={<CommunityView />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
