@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="VIBE CODING - AI 시대의 새로운 코딩 교육. 바이브 코딩으로 당신의 아이디어를 현실로 만드세요." />
+    <meta name="description" content="VIBE CODING - 바이브코딩 학습. AI Cursor, Claude Code, Codex 등 최신 AI 코딩 도구를 활용한 바이브코딩 전문 학습 플랫폼." />
     <meta name="author" content="DreamIT Biz" />
     <meta name="theme-color" content="#7C3AED" />
     <meta name="robots" content="index, follow" />
@@ -12,8 +12,8 @@
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="VIBE CODING" />
-    <meta property="og:title" content="VIBE CODING | AI 시대의 새로운 코딩 교육" />
-    <meta property="og:description" content="바이브 코딩으로 당신의 아이디어를 현실로 만드세요. AI와 함께하는 실전 코딩 교육." />
+    <meta property="og:title" content="VIBE CODING - 바이브코딩 학습" />
+    <meta property="og:description" content="AI Cursor, Claude Code, Codex 등 최신 AI 코딩 도구를 활용한 바이브코딩 전문 학습 플랫폼." />
     <meta property="og:url" content="https://vibe.dreamitbiz.com" />
     <meta property="og:image" content="https://vibe.dreamitbiz.com/og-image.png" />
     <meta property="og:locale" content="ko_KR" />
@@ -22,18 +22,38 @@
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://vibe.dreamitbiz.com/" />
-    <meta name="twitter:title" content="VIBE CODING | AI 시대의 새로운 코딩 교육" />
-    <meta name="twitter:description" content="바이브 코딩으로 당신의 아이디어를 현실로 만드세요." />
+    <meta name="twitter:title" content="VIBE CODING - 바이브코딩 학습" />
+    <meta name="twitter:description" content="AI Cursor, Claude Code, Codex 등 최신 AI 코딩 도구를 활용한 바이브코딩 전문 학습 플랫폼." />
     <meta name="twitter:image" content="https://vibe.dreamitbiz.com/og-image.png" />
 
-    <title>VIBE CODING | 바이브 코딩</title>
-    <script>(function(){var t=localStorage.getItem('vibe-theme');if(!t)t='dark';document.documentElement.setAttribute('data-theme',t)})()</script>
+    <title>VIBE CODING - 바이브코딩 학습</title>
+    <script>
+      (function(){
+        var t=localStorage.getItem('vibe-theme');
+        if(!t){var h=new Date().getHours();t=(h>=18||h<6)?'dark':'light';}
+        document.documentElement.setAttribute('data-theme',t);
+        var c=localStorage.getItem('vibe-colorTheme')||'purple';
+        document.documentElement.setAttribute('data-color',c);
+      })()
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+KR:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+KR:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      (function(l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search.slice(1).split('&').map(function(s) {
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
