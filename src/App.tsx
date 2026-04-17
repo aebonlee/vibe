@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import SearchModal from './components/SearchModal';
 import MobileDrawer from './components/MobileDrawer';
 import ProtectedRoute from './components/ProtectedRoute';
+import AdminGuard from './components/AdminGuard';
 
 const Home = lazy(() => import('./pages/Home'));
 const VibeCodingBasics = lazy(() => import('./pages/VibeCodingBasics'));
@@ -19,6 +20,7 @@ const Login = lazy(() => import('./pages/Login'));
 const CommunityList = lazy(() => import('./pages/community/CommunityList'));
 const CommunityWrite = lazy(() => import('./pages/community/CommunityWrite'));
 const CommunityView = lazy(() => import('./pages/community/CommunityView'));
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 function ScrollToTop(): null {
@@ -77,6 +79,9 @@ function App(): React.ReactElement {
             <ProtectedRoute><CommunityWrite /></ProtectedRoute>
           } />
           <Route path="/community/:id" element={<CommunityView />} />
+          <Route path="/admin/*" element={
+            <AdminGuard><AdminDashboard /></AdminGuard>
+          } />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
