@@ -49,7 +49,7 @@ export default function AdminDashboard() {
     if (!supabase) return;
     (async () => {
       const [m, p, c] = await Promise.all([
-        supabase.from('user_profiles').select('id', { count: 'exact', head: true }),
+        supabase.from('user_profiles').select('id', { count: 'exact', head: true }).contains('visited_sites', [window.location.hostname]),
         supabase.from('vibe_board_posts').select('id', { count: 'exact', head: true }),
         supabase.from('vibe_board_comments').select('id', { count: 'exact', head: true }),
       ]);

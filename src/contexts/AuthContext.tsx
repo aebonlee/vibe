@@ -3,6 +3,7 @@ import { Session, User } from '@supabase/supabase-js'
 import { supabase, setSharedSession, getSharedSession, clearSharedSession } from '../config/supabase'
 import { ADMIN_EMAILS } from '../config/admin'
 import { useIdleTimeout } from '../hooks/useIdleTimeout';
+import ProfileCompleteModal from '../components/ProfileCompleteModal';
 
 interface AuthContextType {
   session: Session | null
@@ -28,6 +29,15 @@ export function useAuth() {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
   const [loading, setLoading] = useState(true)
+
+  
+  // ─── 프로필 완성 체크용 user_profiles 로드 ───
+  const _loadUserProfile = useCallback(async (uid: string) => {
+    try {
+      const { data } = await supabase!.from('user_profiles').select('name,phone').eq('id', uid).maybeSingle();
+      _setUserProfile(data);
+    } catch { _setUserProfile(null); }
+  }, []);
 
   const ensureProfile = useCallback(async (authUser: User) => {
     if (!supabase) return
@@ -82,6 +92,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } catch {
       // check_user_status 미존재 시 무시
     }
+    await _loadUserProfile(authUser.id);
   }, [])
 
   useEffect(() => {
@@ -98,6 +109,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (s?.user) {
         if (s.refresh_token) setSharedSession(s.refresh_token)
         await ensureProfile(s.user)
+        await _loadUserProfile(s.user.id)
       } else {
         // SSO 쿠키로 세션 복원 시도
         const rt = getSharedSession()
@@ -107,6 +119,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             if (data.session) {
               setSession(data.session)
               await ensureProfile(data.session.user)
+              await _loadUserProfile(data.session.user.id)
             } else {
               clearSharedSession()
             }
@@ -125,6 +138,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (_event === 'SIGNED_OUT') clearSharedSession()
       if (session?.user) {
         await ensureProfile(session.user)
+        await _loadUserProfile(session.user.id)
       }
       if (_event === 'SIGNED_IN' || _event === 'TOKEN_REFRESHED') {
         setLoading(false)
@@ -226,12 +240,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   enabled: !!user,
   onTimeout: () => {
   clearSharedSession();
+  const [_userProfile, _setUserProfile] = useState<any>(null);
   },
   });
+  const refreshProfile = useCallback(async () => { if (user) await _loadUserProfile(user.id); }, [user, _loadUserProfile]);
+  const needsProfileCompletion = !!user && !!_userProfile && (!_userProfile.name || !_userProfile.phone);
+
 
   return (
     <AuthContext.Provider value={value}>
       {children}
+      {needsProfileCompletion && user && (
+        <ProfileCompleteModal user={user} onComplete={refreshProfile} />
+      )}
     </AuthContext.Provider>
   )
 }
