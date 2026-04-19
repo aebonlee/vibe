@@ -29,8 +29,9 @@ export function useAuth() {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
   const [loading, setLoading] = useState(true)
+  const [_userProfile, _setUserProfile] = useState<any>(null)
 
-  
+
   // ─── 프로필 완성 체크용 user_profiles 로드 ───
   const _loadUserProfile = useCallback(async (uid: string) => {
     try {
@@ -237,11 +238,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // 10분 무동작 세션 타임아웃
   useIdleTimeout({
-  enabled: !!user,
-  onTimeout: () => {
-  clearSharedSession();
-  const [_userProfile, _setUserProfile] = useState<any>(null);
-  },
+    enabled: !!user,
+    onTimeout: () => {
+      clearSharedSession();
+    },
   });
   const refreshProfile = useCallback(async () => { if (user) await _loadUserProfile(user.id); }, [user, _loadUserProfile]);
   const needsProfileCompletion = !!user && !!_userProfile && !_userProfile.name;

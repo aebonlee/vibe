@@ -1,14 +1,14 @@
 /**
  * auth.ts — 프로필 업데이트 헬퍼
  */
-import getSupabase from './supabase';
+import { supabase } from '../config/supabase';
 
 /** 프로필 업데이트 */
 export async function updateProfile(
   userId: string,
   updates: Record<string, unknown>
 ): Promise<any> {
-  const client = getSupabase();
+  const client = supabase;
   if (!client) return null;
   const { data, error } = await client
     .from('user_profiles')
