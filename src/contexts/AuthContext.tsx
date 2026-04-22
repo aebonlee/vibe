@@ -5,11 +5,14 @@ import { ADMIN_EMAILS } from '../config/admin'
 import { useIdleTimeout } from '../hooks/useIdleTimeout';
 import ProfileCompleteModal from '../components/ProfileCompleteModal';
 
+import PaymentNudgePopup from '../components/PaymentNudgePopup';
 interface AuthContextType {
   session: Session | null
   user: User | null
   loading: boolean
   isAdmin: boolean
+  authError: string | null
+  clearAuthError: () => void
   signUp: (email: string, password: string, fullName: string) => Promise<any>
   signIn: (email: string, password: string) => Promise<any>
   signInWithGoogle: () => Promise<void>
@@ -29,7 +32,10 @@ export function useAuth() {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
   const [loading, setLoading] = useState(true)
+  const [authError, setAuthError] = useState<string | null>(null)
   const [_userProfile, _setUserProfile] = useState<any>(null)
+
+  const clearAuthError = () => setAuthError(null)
 
 
   // ─── 프로필 완성 체크용 user_profiles 로드 ───
@@ -184,21 +190,43 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signInWithGoogle = async () => {
     if (!supabase) return
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: window.location.origin }
-    })
+    setAuthError(null)
+    setLoading(true)
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: `${window.location.origin}/` },
+      })
+      if (error) {
+        setAuthError(error.message)
+        setLoading(false)
+      }
+    } catch {
+      setAuthError('Google 로그인 중 오류가 발생했습니다.')
+      setLoading(false)
+    }
   }
 
   const signInWithKakao = async () => {
     if (!supabase) return
-    await supabase.auth.signInWithOAuth({
-      provider: 'kakao',
-      options: {
-        redirectTo: window.location.origin,
-        scopes: 'profile_nickname profile_image account_email',
+    setAuthError(null)
+    setLoading(true)
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'kakao',
+        options: {
+          redirectTo: `${window.location.origin}/`,
+          scopes: 'profile_nickname profile_image account_email',
+        },
+      })
+      if (error) {
+        setAuthError(error.message)
+        setLoading(false)
       }
-    })
+    } catch {
+      setAuthError('카카오 로그인 중 오류가 발생했습니다.')
+      setLoading(false)
+    }
   }
 
   const resetPassword = async (email: string) => {
@@ -227,6 +255,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     user,
     loading,
     isAdmin,
+    authError,
+    clearAuthError,
     signUp,
     signIn,
     signInWithGoogle,
@@ -253,6 +283,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       {needsProfileCompletion && user && (
         <ProfileCompleteModal user={user} onComplete={refreshProfile} />
       )}
+    {!!user && !needsProfileCompletion && (
+      <PaymentNudgePopup user={user} siteSlug="vibe" />
+    )}
     </AuthContext.Provider>
   )
 }
