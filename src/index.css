@@ -1276,6 +1276,59 @@ a:hover {
   color: var(--text-secondary);
 }
 
+/* ===== 15-b. Project One-Page Steps ===== */
+.project-step {
+  scroll-margin-top: calc(var(--navbar-height) + 24px);
+  margin-bottom: 32px;
+}
+
+.project-step:last-of-type {
+  margin-bottom: 0;
+}
+
+/* ===== 15-c. Project Outcomes ===== */
+.project-outcomes {
+  background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.06) 0%, rgba(var(--primary-rgb), 0.02) 100%);
+  border: 1px solid rgba(var(--primary-rgb), 0.15);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  margin-top: 40px;
+  scroll-margin-top: calc(var(--navbar-height) + 24px);
+}
+
+.project-outcomes-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.project-outcomes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 24px;
+}
+
+.project-outcomes-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.project-outcomes-item::before {
+  content: '✓';
+  color: var(--primary);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
 /* ===== 16. Animations ===== */
 @keyframes fadeIn {
   from { opacity: 0; }
@@ -2027,6 +2080,9 @@ a:hover {
   }
   .sidebar-content {
     padding: 24px 16px;
+  }
+  .project-outcomes-grid {
+    grid-template-columns: 1fr;
   }
   .card-grid {
     grid-template-columns: repeat(2, 1fr);
