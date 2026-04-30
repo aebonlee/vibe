@@ -64,8 +64,9 @@ export default function ProjectsGuide(): React.ReactElement {
         subtitle="AI와 함께 프로젝트를 설계하고, 프론트엔드 구축, 백엔드 연동, 배포, 포트폴리오까지 완성합니다."
       />
 
-      <div className="sidebar-layout">
-        <aside className="sidebar">
+      <div className="container">
+        <div className="sidebar-layout">
+          <aside className="sidebar">
           <nav className="sidebar-menu">
             {projectsTopics.map((t) => (
               <button
@@ -136,6 +137,7 @@ export default function ProjectsGuide(): React.ReactElement {
                 </div>
               ))}
             </div>
+          </div>
           </div>
         </div>
       </div>

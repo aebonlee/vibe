@@ -125,6 +125,12 @@
   padding: 0;
 }
 
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
 html {
   font-family: var(--font-family);
   font-size: var(--font-size-base);
@@ -1154,12 +1160,11 @@ a:hover {
 
 /* ===== 14. Sidebar Layout ===== */
 .sidebar-layout {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 32px 40px;
   display: flex;
   gap: 32px;
   align-items: flex-start;
+  padding-top: 32px;
+  padding-bottom: 32px;
 }
 
 .sidebar {
